@@ -4,34 +4,40 @@
 #          Miguel A Sepulveda  Sunnyvale CA (USA)
 #
 ######################################################################################################
-import logging
+from unittest import TestCase
+import pyqwave
 
 ######################################################################################################
-def is_string_integer( string ):
-    try:
-        value = int(string)
-        return True
-    except ValueError:
-        pass
+class TestHelpers(TestCase):
 
-    return False
+    def test_is_integer(self):
+        
+        result = pyqwave.is_integer(10)
+        self.assertTrue(result)
 
-######################################################################################################
-def is_string_float( string ):
-    try:
-        value = float(string)
-        return True
-    except ValueError:
-        pass
+        result = pyqwave.is_integer(10.4)
+        self.assertTrue(not result)
 
-    return False
+    def test_is_float(self):
+        
+        result = pyqwave.is_float(10.25215)
+        self.assertTrue(result)
 
-######################################################################################################
-def is_integer( number ):
-    return isinstance(number,int)
+        result = pyqwave.is_float(10)
+        self.assertTrue(not result)
 
-######################################################################################################
-def is_float( number ):
-    return isinstance(number, float)
+    def test_is_string_integer(self):
+        
+        result = pyqwave.is_string_integer("10")
+        self.assertTrue(result)
 
-    
+        result = pyqwave.is_string_integer("10.4")
+        self.assertTrue(not result)
+
+    def test_is_string_float(self):
+        
+        result = pyqwave.is_string_float("10.235345")
+        self.assertTrue(result)
+
+        result = pyqwave.is_string_float("10A")
+        self.assertTrue(not result)
