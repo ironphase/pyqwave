@@ -7,6 +7,36 @@ import logging
 import numpy as np
 
 
+
+######################################################################################################
+class cartesian1d(object):
+    """
+    Define a finite cartesian coordinate grid in 1 dimension. 
+    """
+
+    def __init__(self, xmin, xmax, nsteps):
+        """
+        Allocate a 1-dimensional cartesian basis set |x_i> starting at position xmin to xmax
+        for a total of nsteps grid points: |xmin>, |xmin+d>, |xmin+2d>,....|xmax>.
+        """
+
+        if nsteps < 2:
+            raise Exception("nsteps should be greater that 1")
+
+        if (xmax <= xmin):
+            raise Exception("xmin should be smaller than xmax: {} {}".format(xmin,xmax) )
+
+        self.data = np.zeros(nsteps, dtype=np.float64)
+        delta = float(xmax - xmin)/(nsteps-1.0)
+        for i in range(nsteps):
+            self.data[i] = xmin + i * delta
+
+
+    def dimension(self):
+
+        return self.data.shape[0]
+
+
 ######################################################################################################
 class wave1d(object):
 
